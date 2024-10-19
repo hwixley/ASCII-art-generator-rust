@@ -9,13 +9,13 @@ fn main() {
     let pic_path: String = arg_parser.parse(vec!["--image".to_string(), "-i".to_string()], false).unwrap_or("building.jpeg".to_string());
 
     // TARGET WIDTH
-    let target_width: u32 = arg_parser.parse(vec!["--twidth".to_string(), "-tw".to_string()], false).unwrap_or("512".to_string()).parse().unwrap();
+    let target_width: u32 = arg_parser.parse(vec!["--twidth".to_string(), "-tw".to_string()], false).unwrap_or(512.to_string()).parse().unwrap();
 
     // STDOUT
-    let stdoutput: bool = arg_parser.parse(vec!["--stdoutput".to_string(), "-s".to_string()], true).unwrap_or("true".to_string()) == "true".to_string();
+    let stdoutput: bool = arg_parser.parse(vec!["--stdoutput".to_string(), "-s".to_string()], true).unwrap_or(true.to_string()) == true.to_string();
 
     // FILE OUTPUT
-    let foutput: String = arg_parser.parse(vec!["--foutput".to_string(), "-f".to_string()], true).unwrap_or("".to_string());
+    let foutput: String = arg_parser.parse(vec!["--foutput".to_string(), "-f".to_string()], true).unwrap_or(false.to_string());
 
 
     // 2. -- Parse image and generate ASCII --
