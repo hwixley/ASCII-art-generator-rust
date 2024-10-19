@@ -31,11 +31,11 @@ impl MyPicture {
         return imageops::resize(&gray, nwidth as u32, new_height as u32, imageops::FilterType::CatmullRom)
     }
 
-    pub fn to_ascii(&self) -> String {
-        println!("Parsing image into ASCII string...");
+    pub fn to_ascii(&self, twidth: u32) -> String {
+        println!("Parsing image into ASCII string of width {}...", twidth);
 
         let charset: String = " .:-=+*#%@".to_string();
-        let img: ImageBuffer<image::Luma<u8>, Vec<u8>> = MyPicture::load_gray_img(self, 512);
+        let img: ImageBuffer<image::Luma<u8>, Vec<u8>> = MyPicture::load_gray_img(self, twidth);
         let (width, _): (u32, u32) = img.dimensions();
 
         let mut ascii_out: String = "".to_string();

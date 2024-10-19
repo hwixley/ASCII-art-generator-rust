@@ -15,13 +15,16 @@ impl Argparser {
     //     return &self.args
     // }
 
-    pub fn parse(&mut self, flags: Vec<String>) -> Option<String> {
+    pub fn parse(&mut self, flags: Vec<String>, toggle: bool) -> Option<String> {
         let mut found_flag: bool = false;
         let mut iter: std::slice::Iter<'_, String> = self.args.iter();
         while let Some(arg) = iter.next() {
             if found_flag {
                 return Some(arg.to_string())
             } else if flags.contains(&arg.to_string()) {
+                if toggle {
+                    return Some("true".to_string())
+                }
                 found_flag = true;
             }
             
