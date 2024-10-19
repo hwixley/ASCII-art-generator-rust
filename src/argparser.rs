@@ -1,27 +1,30 @@
 pub struct Argparser {
-    args: std::env::Args,
+    args: Vec<String>,
 }
 
 impl Argparser {
-    pub fn new(args: std::env::Args) -> Argparser {
-        Argparser { args: args }
+    pub fn new(args: &mut std::env::Args) -> Argparser {
+        let mut argvec: Vec<String> = vec![];
+        while let Some(arg) = args.next() {
+            argvec.push(arg);
+        }
+        Argparser { args: argvec }
     }
 
-    pub fn parse(&mut self, flags: Vec<String>, error_msg: String) -> Option<String> {
+    // pub fn get(&self) -> &Vec<String> {
+    //     return &self.args
+    // }
+
+    pub fn parse(&mut self, flags: Vec<String>) -> Option<String> {
         let mut found_flag: bool = false;
-        println!("{:?}", self.args);
-        println!("{:?}", self.args.nth(1));
-        println!("{:?}", self.args.nth(1));
-        for i in 0..self.args.len() {
-            println!("{}", i);
-            // let val: String = self.args.nth(i).expect(&error_msg);
-            println!("{}", self.args.nth(i).expect(&error_msg));
+        let mut iter: std::slice::Iter<'_, String> = self.args.iter();
+        while let Some(arg) = iter.next() {
             if found_flag {
-                println!("EYOO");
-                return Some(self.args.nth(i).expect(&error_msg))
-            } else if flags.contains(&self.args.nth(i).expect(&error_msg)) {
+                return Some(arg.to_string())
+            } else if flags.contains(&arg.to_string()) {
                 found_flag = true;
             }
+            
         }
         return None
     }
