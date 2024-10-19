@@ -15,7 +15,7 @@ fn main() {
     let stdoutput: bool = arg_parser.parse(vec!["--stdoutput".to_string(), "-s".to_string()], true).unwrap_or(true.to_string()) == true.to_string();
 
     // FILE OUTPUT
-    let foutput: String = arg_parser.parse(vec!["--foutput".to_string(), "-f".to_string()], true).unwrap_or(false.to_string());
+    let foutput: bool = arg_parser.parse(vec!["--foutput".to_string(), "-f".to_string()], true).unwrap_or(false.to_string()) == true.to_string();
 
 
     // 2. -- Parse image and generate ASCII --
@@ -24,13 +24,14 @@ fn main() {
 
 
     // 3. -- Perform actions --
-    if stdoutput {
-        println!("{}", ascii);
-    }
-
-    if !foutput.is_empty() {
+    if foutput {
         let mut fname: String = pic_path.clone();
         fname.push_str(".ASCII.txt");
+        println!("Saving generated art to '{}'...", fname);
         std::fs::write(fname, &ascii).expect("Unable to write file");
+    }
+    
+    if stdoutput {
+        println!("{}", ascii);
     }
 }
